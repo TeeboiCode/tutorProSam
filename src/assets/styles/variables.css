@@ -1,0 +1,54 @@
+:root {
+  /* Core Color Palette (Purple Tones) */
+  --light-lavender: #e6e6fa;
+  --soft-lilac: #fff4fe;
+  --medium-purple: #ffd1fd;
+  --royal-purple: #e525db;
+  --deep-violet: #541051;
+  --midnight-purple: #7b0e75;
+
+  /* Gradients */
+  --gradient-lavender-royal: linear-gradient(135deg, var(--light-lavender), var(--royal-purple));
+  --gradient-lilac-vibes: linear-gradient(135deg, var(--soft-lilac), var(--midnight-purple));
+  --gradient-mystic-dusk: linear-gradient(to right, var(--soft-border), var(--deep-violet));
+  --gradient-soft-blend: linear-gradient(to bottom, var(--light-lavender), var(--soft-lilac));
+
+  /* Borders & Accent Elements */
+  --soft-border: 1px solid var(--light-lavender);
+  --accent-underline: 3px solid var(--royal-purple);
+  --active-highlight: 2px solid var(--royal-purple);
+
+  /* Typography */
+  --font-family: "Inter", system-ui, -apple-system, sans-serif;
+  --font-size-base: 16px;
+  --font-size-sm: 14px;
+  --font-size-lg: 18px;
+  --font-size-xl: 24px;
+  --font-size-2xl: 32px;
+
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+
+  /* Border Radius */
+  --border-radius-sm: 0.25rem;
+  --border-radius-md: 0.5rem;
+  --border-radius-lg: 1rem;
+  --border-radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-normal: 300ms ease;
+  --transition-slow: 500ms ease;
+}
