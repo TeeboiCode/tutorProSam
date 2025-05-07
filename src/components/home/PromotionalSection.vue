@@ -49,12 +49,12 @@
           <div class="col-lg-6 mb-4 mb-lg-0 p-0">
             <div class="promo-images">
               <img
-                src="../../assets/images/SAMCY/Rectangle 412.webp"
+                src="@/assets/images/SAMCY/Rectangle 412.webp"
                 alt="Exam preparation"
                 class="promo-image main-image"
               />
               <img
-                src="../../assets/images/SAMCY/Rectangle 413.webp"
+                src="@assets/images/SAMCY/Rectangle 413.webp"
                 alt="Study materials"
                 class="promo-image overlay-image"
               />
