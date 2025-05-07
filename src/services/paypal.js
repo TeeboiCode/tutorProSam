@@ -12,7 +12,10 @@ export const initializePayPal = async () => {
   try {
     // Load PayPal SDK with configuration
     paypal = await loadScript({
-      "client-id": import.meta.env.VITE_PAYPAL_CLIENT_ID || "test", // Use test client ID if not set
+      "client-id":
+        import.meta
+          .AWalYOeJqo2n3kSsA3PLze_tMiMcKuxEGuaBCBvQMmInN_ENUozPADbBiJ_s0ffjPgN1eR4ZnpocFXZ4 ||
+        "test", // Use test client ID if not set
       currency: "USD", // Default currency
       intent: "capture", // Payment intent (capture or authorize)
       "enable-funding": "paylater,venmo", // Additional payment methods
@@ -52,7 +55,7 @@ export const capturePayment = async (orderId, userData) => {
   try {
     const response = await axios.post("/api/payments/capture-payment", {
       orderId: orderId,
-      userData: userData
+      userData: userData,
     });
 
     return response.data;
@@ -66,7 +69,12 @@ export const capturePayment = async (orderId, userData) => {
  * Render the PayPal button on your page
  * This creates and displays the PayPal button with your configuration
  */
-export const renderPayPalButton = async (containerId, amount, onSuccess, userData) => {
+export const renderPayPalButton = async (
+  containerId,
+  amount,
+  onSuccess,
+  userData
+) => {
   try {
     // Wait for the container to exist with a retry mechanism
     let container = document.getElementById(containerId);
@@ -123,10 +131,10 @@ export const renderPayPalButton = async (containerId, amount, onSuccess, userDat
           try {
             // First, let PayPal capture the payment on their side
             const details = await actions.order.capture();
-            
+
             // Then manually call our onSuccess callback with the details
             onSuccess(details);
-            
+
             return details;
           } catch (error) {
             console.error("Error in PayPal payment capture:", error);
