@@ -1,11 +1,11 @@
 <template>
   <section class="promotional-section position-relative py-5">
-    <div class="overeffect d-none d-lg-block">
+    <!-- <div class="overeffect d-none d-lg-block">
       <img src="../../assets/images/eff-4.png" alt="" />
     </div>
     <div class="overeffect-1 d-none d-lg-block">
       <img src="../../assets/images/eff-5.png" alt="" />
-    </div>
+    </div> -->
     <div class="container">
       <!-- Top Layout: Image on right, content on left -->
       <!-- <div class="promo-layout top-layout mb-5">
