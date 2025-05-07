@@ -1,60 +1,18 @@
 <template>
   <section class="promotional-section position-relative py-5">
-    <!-- <div class="overeffect d-none d-lg-block">
-      <img src="../../assets/images/eff-4.png" alt="" />
-    </div>
-    <div class="overeffect-1 d-none d-lg-block">
-      <img src="../../assets/images/eff-5.png" alt="" />
-    </div> -->
     <div class="container">
-      <!-- Top Layout: Image on right, content on left -->
-      <!-- <div class="promo-layout top-layout mb-5">
-        <div class="row m-0 align-items-center">
-          <div class="col-lg-6 mb-4 mb-lg-0 p-0">
-            <div class="promo-content">
-              <h3 class="promo-title">Your Success Story Starts Here</h3>
-              <h2 class="promo-headline">
-                Master JAMB, WAEC, NECO, and Postgraduate Exams with Ease
-              </h2>
-              <p class="promo-description">
-                Join a community of achievers. Our tailored tutorials are
-                designed to boost your confidence, sharpen your skills, and
-                ensure you're ready for exam day.
-              </p>
-              <router-link to="/register" class="btn btn-primary btn-lg">
-                Get Started Now
-              </router-link>
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="promo-images">
-              <img
-                src="../../assets/images/promo-image-1.jpg"
-                alt="Student studying"
-                class="promo-image main-image"
-              />
-              <img
-                src="../../assets/images/promo-image-2.jpg"
-                alt="Student success"
-                class="promo-image overlay-image"
-              />
-            </div>
-          </div>
-        </div>
-      </div> -->
-
       <!-- Bottom Layout: Content on right, image on left -->
       <div class="promo-layout bottom-layout">
         <div class="row m-0 align-items-center">
           <div class="col-lg-6 mb-4 mb-lg-0 p-0">
             <div class="promo-images">
               <img
-                src="@/assets/images/SAMCY/Rectangle 412.webp"
+                src="@/assets/images/SAMCY/Rectangle-412.webp"
                 alt="Exam preparation"
                 class="promo-image main-image"
               />
               <img
-                src="@assets/images/SAMCY/Rectangle 413.webp"
+                src="@/assets/images/SAMCY/Rectangle-413.webp"
                 alt="Study materials"
                 class="promo-image overlay-image"
               />
