@@ -2,17 +2,26 @@
   <div class="home">
     <HeroSection />
     <LogosMarquee />
+
     <!-- <QuickStats /> don't touch -->
     <FeaturesSection />
+
     <PromotionalSection />
+
     <Program />
+
     <!-- <FeaturedTutors /> don't touch -->
     <TestimonialSection />
+
     <!-- <HowItWorksSection /> -->
     <CTASection />
+
     <UpcomingEvents />
+
     <Footer />
+
   </div>
+  
 </template>
 
 <script>
