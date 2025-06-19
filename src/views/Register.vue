@@ -1,271 +1,175 @@
 <template>
-  <div class="register-container">
-    <div class="register-card">
-      <h2>Register</h2>
-      <StepIndicator :current-step="currentStep" :total-steps="totalSteps" />
+  <div
+    class="register-container d-flex justify-content-center align-items-center overflow-hidden"
+  >
+    <div class="container">
+      <div
+        class="row justify-content-center align-items-center min-vh-100 py-5"
+      >
+        <div class="col-md-8 col-lg-6">
+          <div class="register-card bg-white rounded-4 shadow">
+            <div class="text-center mb-4">
+              <div class="icon-circle mb-3">
+                <i class="bi bi-person-plus text-purple"></i>
+              </div>
+              <h2 class="text-purple mb-2">Create Account</h2>
+              <p class="text-muted">
+                Join our community of learners and educators
+              </p>
+            </div>
 
-      <form @submit.prevent="handleSubmit">
-        <!-- Step 1: Personal Details -->
-        <div v-if="currentStep === 1">
-          <PersonalDetailsForm
-            v-model="formData"
-            @validation="(valid) => (isStep1Valid = valid)"
-          />
-          <div class="button-group">
-            <button type="button" @click="nextStep" :disabled="!isStep1Valid">
-              Continue
-            </button>
+            <form @submit.prevent="handleSubmit">
+              <!-- Step Indicators -->
+              <div class="step-indicators mb-5">
+                <div class="d-flex justify-content-between">
+                  <div class="step" :class="{ active: currentStep >= 1 }">
+                    <div class="step-circle">
+                      <i class="bi bi-person"></i>
+                    </div>
+                    <div class="step-label">Account</div>
+                  </div>
+                  <div class="step" :class="{ active: currentStep >= 2 }">
+                    <div class="step-circle">
+                      <i class="bi bi-credit-card"></i>
+                    </div>
+                    <div class="step-label">Payment</div>
+                  </div>
+                  <div class="step" :class="{ active: currentStep >= 3 }">
+                    <div class="step-circle">
+                      <i class="bi bi-check-circle"></i>
+                    </div>
+                    <div class="step-label">Complete</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Step 1: Personal Details -->
+              <PersonalDetailsForm
+                v-if="currentStep === 1"
+                v-model="formData"
+                @validation="(valid) => (isStep1Valid = valid)"
+              />
+
+              <div class="button-group d-flex justify-content-end mt-4">
+                <button
+                  v-if="currentStep === 1"
+                  type="submit"
+                  class="btn btn-primary"
+                  :disabled="!isStep1Valid"
+                >
+                  Continue
+                </button>
+              </div>
+            </form>
+
+            <!-- Add other steps like Step 2 and Step 3 here -->
           </div>
         </div>
-
-        <!-- Step 2: Additional Information -->
-        <div v-if="currentStep === 2">
-          <AdditionalInfoForm
-            v-model="formData"
-            @validation="(valid) => (isStep2Valid = valid)"
-          />
-          <div class="button-group">
-            <button type="button" @click="prevStep">Back</button>
-            <button type="button" @click="nextStep" :disabled="!isStep2Valid">
-              Continue
-            </button>
-          </div>
-        </div>
-
-        <!-- Step 3: Payment -->
-        <div v-if="currentStep === 3">
-          <PaymentForm v-model="formData" />
-          <div class="button-group">
-            <button type="button" @click="prevStep">Back</button>
-            <button type="submit" :disabled="!isPaymentComplete">
-              Complete Registration
-            </button>
-          </div>
-        </div>
-      </form>
+      </div>
     </div>
   </div>
 </template>
 
-<script>
-import { ref, reactive, watch } from "vue";
-import { useRouter } from "vue-router";
-import StepIndicator from "../components/signup/StepIndicator.vue";
+<script setup>
 import PersonalDetailsForm from "../components/signup/PersonalDetailsForm.vue";
-import AdditionalInfoForm from "../components/signup/AdditionalInfoForm.vue";
-import PaymentForm from "../components/signup/PaymentForm.vue";
-import axios from "axios";
+import { ref } from "vue";
 
-export default {
-  name: "Register",
-  components: {
-    StepIndicator,
-    PersonalDetailsForm,
-    AdditionalInfoForm,
-    PaymentForm,
-  },
-  setup() {
-    const router = useRouter();
-    const currentStep = ref(1);
-    const totalSteps = 3;
-    const isStep1Valid = ref(false);
-    const isStep2Valid = ref(false);
-    const isPaymentComplete = ref(false);
+const currentStep = ref(1);
+const isStep1Valid = ref(false);
 
-    const formData = ref({
-      // Step 1: Personal Details
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-      phone: "",
-      // Step 2: Additional Information
-      maritalStatus: "",
-      dob: "",
-      state: "",
-      localGovt: "",
-      address: "",
-      nationality: "",
-      nin: "",
-      department: "",
-      gender: "",
-      privacyPolicy: false,
-      // Step 3: Payment
-      paymentStatus: "pending",
-      paypalOrderId: "",
-      paymentDate: null,
-      paymentAmount: 2.5,
-    });
+const formData = ref({
+  firstName: "",
+  lastName: "",
+  email: "",
+  phone: "",
+  password: "",
+  confirmPassword: "",
+});
 
-    const updateFormData = (newData) => {
-      Object.assign(formData.value, newData);
-    };
-
-    // Validation functions
-    const validateStep1 = () => {
-      const { firstName, lastName, email, password, confirmPassword, phone } =
-        formData.value;
-      isStep1Valid.value =
-        firstName.length >= 2 &&
-        lastName.length >= 2 &&
-        /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) &&
-        password.length >= 6 &&
-        password === confirmPassword &&
-        /^0\d{9,14}$/.test(phone);
-    };
-
-    const validateStep2 = () => {
-      const {
-        maritalStatus,
-        dob,
-        state,
-        localGovt,
-        address,
-        nationality,
-        nin,
-        department,
-        gender,
-        privacyPolicy,
-      } = formData.value;
-
-      isStep2Valid.value =
-        maritalStatus &&
-        dob &&
-        state &&
-        localGovt &&
-        address &&
-        nationality &&
-        /^\d+$/.test(nin) &&
-        department &&
-        gender &&
-        privacyPolicy;
-    };
-
-    // Watch for changes in form data
-    watch(
-      () => formData.value,
-      () => {
-        if (currentStep.value === 1) {
-          validateStep1();
-        } else if (currentStep.value === 2) {
-          validateStep2();
-        }
-      },
-      { deep: true }
-    );
-
-    const nextStep = () => {
-      console.log("Current Step:", currentStep.value);
-      console.log("Step 1 Valid:", isStep1Valid.value);
-      console.log("Step 2 Valid:", isStep2Valid.value);
-
-      if (currentStep.value < totalSteps) {
-        if (currentStep.value === 1 && !isStep1Valid.value) {
-          console.log("Step 1 validation failed");
-          return;
-        }
-        if (currentStep.value === 2 && !isStep2Valid.value) {
-          console.log("Step 2 validation failed");
-          return;
-        }
-        currentStep.value++;
-        console.log("Moving to step:", currentStep.value);
-      }
-    };
-
-    const prevStep = () => {
-      if (currentStep.value > 1) {
-        currentStep.value--;
-      }
-    };
-
-    const handleSubmit = async () => {
-      try {
-        // 1. Create PayPal order first
-        const orderResponse = await axios.post("/api/student/create-order");
-
-        if (orderResponse.data.id) {
-          // 2. Capture the payment with user data
-          const captureResponse = await axios.post(
-            "/api/student/capture-payment",
-            {
-              orderId: orderResponse.data.id,
-              userData: formData.value,
-            }
-          );
-
-          if (captureResponse.data.message === "Registration successful") {
-            // Show success message
-            alert("Registration successful! Redirecting to home page...");
-            // Redirect to home page
-            router.push("/");
-          }
-        }
-      } catch (error) {
-        console.error("Registration error:", error);
-        alert("Registration failed. Please try again.");
-      }
-    };
-
-    return {
-      currentStep,
-      totalSteps,
-      isStep1Valid,
-      isStep2Valid,
-      isPaymentComplete,
-      formData,
-      updateFormData,
-      nextStep,
-      prevStep,
-      handleSubmit,
-    };
-  },
+const handleSubmit = () => {
+  if (isStep1Valid.value) {
+    console.log("Step 1 Valid. Proceeding to Step 2.");
+    currentStep.value++;
+    console.log("Form Data:", formData.value);
+  }
 };
 </script>
 
 <style scoped>
 .register-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   min-height: 100vh;
-  padding: 20px;
   background-color: #f5f5f5;
 }
 
 .register-card {
-  background: white;
   padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 600px;
 }
 
-h2 {
+.step-indicators {
+  position: relative;
+  padding: 0 40px;
+}
+
+.step-indicators::before {
+  content: "";
+  position: absolute;
+  top: 20px;
+  left: 60px;
+  right: 60px;
+  height: 2px;
+  background: var(--gradient-soft);
+  z-index: 1;
+}
+
+.step {
+  position: relative;
+  z-index: 2;
   text-align: center;
-  margin-bottom: 2rem;
-  color: #333;
 }
 
-.button-group {
+.step-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--light-purple);
   display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 8px;
+  transition: var(--transition-normal);
 }
 
-button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  background-color: #007bff;
+.step.active .step-circle {
+  background: var(--gradient-primary);
   color: white;
-  cursor: pointer;
 }
 
-button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
+.step-label {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  transition: var(--transition-normal);
+}
+
+.step.active .step-label {
+  color: var(--royal-purple);
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .register-card {
+    padding: var(--spacing-lg);
+    margin: var(--spacing-md);
+  }
+
+  .step-indicators {
+    padding: 0 20px;
+  }
+
+  .step-indicators::before {
+    left: 40px;
+    right: 40px;
+  }
 }
 </style>

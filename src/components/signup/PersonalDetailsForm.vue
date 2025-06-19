@@ -188,19 +188,21 @@ export default {
 
       // Check if all fields are valid
       const isValid = Object.values(errors.value).every((error) => !error);
-      emit("validation", isValid);
+      emit("validation", isValid); // Emit validation event
     };
 
     const submit = () => {
       // Validate all fields on submit
-      Object.keys(errors.value).forEach((field) => validateField(field));
-      const isValid = Object.values(errors.value).every((error) => !error);
+      Object.keys(errors.value).forEach((field) => validateField(field)); // Validate all fields
+      const isValid = Object.values(errors.value).every((error) => !error); // Check if all fields are valid
 
       if (isValid) {
         emit("update:modelValue", { ...formData.value });
       }
     };
 
+
+  
     return {
       formData,
       errors,

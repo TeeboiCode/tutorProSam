@@ -49,7 +49,7 @@ export default {
             "Get guidance from qualified, experienced educators in every subject.",
           bg: "#f0e6ff",
           src: new URL(
-            "../../assets/images/SAMCY/Rectangle 384.png",
+            "../../assets/images/SAMCY/Rectangle-384.png",
             import.meta.url
           ).href,
         },
@@ -60,7 +60,7 @@ export default {
             "Learn at your pace with customizable schedules tailored to your needs.",
           bg: "#f0e6ff",
           src: new URL(
-            "../../assets/images/SAMCY/Rectangle 382.png",
+            "../../assets/images/SAMCY/Rectangle-382.png",
             import.meta.url
           ).href,
         },
@@ -70,10 +70,11 @@ export default {
           description: "Enjoy secure and hassle-free online payment options.",
           bg: "#f0e6ff",
           src: new URL(
-            "../../assets/images/SAMCY/Rectangle 386.png",
+            "../../assets/images/SAMCY/Rectangle-386.png",
             import.meta.url
           ).href,
         },
+
 
         // {
         //   icon: "bi bi-people text-purple",
